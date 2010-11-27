@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>sample-bbs</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+</head>
+<body>
+
+<h1>Sample BBS</h1>
+
+[% FILTER fillinform(req) %]
+<form name="form1" action="login" method="post">
+<div>Login ID: <input type="text" name="login_id" value="" /></div>
+[% IF error.missing('login_id') %]
+<div>Login ID を入力してください。</div>
+[% END %]
+[% IF error.invalid('login_id') %]
+<div>Login ID は半角英数字記号で入力してください。</div>
+[% END %]
+
+<div>Password: <input type="password" name="password" value="" /></div>
+[% IF error.missing('password') %]
+<div>Password を入力してください。</div>
+[% END %]
+
+<div><input type="submit" name="login" value="Sign In" /></div>
+</form>
+[% END %]
+
+[% IF req.param('logout') %]
+<div>ログアウトしました。</div>
+[% END %]
+
+[% IF login_failure %]
+<div>Login ID 又は Password が正しくありません。</div>
+[% END %]
+
+[% IF req.param('session_expire') %]
+<div>長時間操作しなかった為、ログアウトしました、改めてログインしてください。</div>
+[% END %]
+
+[% IF req.param('missing_admin') %]
+<div>ログイン中にアカウントが削除されました。</div>
+[% END %]
+
+</body>
+</html>
