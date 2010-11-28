@@ -9,6 +9,7 @@ Digest::SHA
 FormValidator::Simple
 HTML::FillInForm::Lite
 Log::Minimal
+File::Stamped
 Text::Xslate
 DBD::Pg
 EOF
