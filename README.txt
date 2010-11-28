@@ -15,8 +15,8 @@ ln -s /opt/sample-bbs/apache-conf/sample-bbs.conf /etc/httpd/conf.d/sample-bbs.c
 # 手動で起動 (開発時)
 SAMPLE_BBS_BASEDIR=./ plackup -p 18080 -a app.psgi -r -R ./lib,./template
 
-- cpanm等で予めPlackをインストール
-- 足りないモジュールは都度インストール
+- 以下を実行し、Plack等の依存モジュールを予めインストールしておく
+- ./setup/install_deps.sh
 
 # Initスクリプトで起動 (デーモン)
 /opt/sample-bbs/init.d/sample-bbs.sh start
