@@ -10,7 +10,7 @@ use Digest::SHA qw(sha256_hex);
 opts my $login_id => { isa => 'Str', required => 1, comment => 'admin login_id ex. -l demo' },
      my $password => { isa => 'Str', required => 1, comment => 'admin password ex. -l demo' };
 
-my $password_hash = sha256_hex($password);
+my $password_hash = sha256_hex('SampleBBS' . $password);
 
 my $db = SampleBBS::Model->new;
 

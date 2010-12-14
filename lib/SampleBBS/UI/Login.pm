@@ -21,7 +21,7 @@ sub process {
     }
     
     my $login_id = $req->param('login_id');
-    my $password_hash = sha256_hex($req->param('password'));
+    my $password_hash = sha256_hex('SampleBBS' . $req->param('password'));
     
     $self->validate($req, [
         login_id => ['NOT_BLANK', 'ASCII'],

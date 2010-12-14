@@ -4,10 +4,12 @@ use Plack::Request;
 use Plack::Builder;
 use Plack::Middleware::Session;
 use Plack::Session::Store::File;
+use Plack::Session::State::Cookie;
 use File::Spec::Functions;
 use File::Stamped;
 use Log::Minimal;
 use UNIVERSAL::require;
+use String::Urandom;
 
 my $base_class = 'SampleBBS';
 
@@ -68,10 +70,18 @@ if (!-d $session_dir) {
     mkdir $session_dir;
 }
 
+my $urandom = String::Urandom->new( LENGTH => 40 );
+my $sid_generator = sub { $urandom->rand_string };
+my $sid_validator = qr/\A[0-9a-zA-Z]{40}\Z/;
+
 builder {
     enable 'Session::Fixation',
         store => Plack::Session::Store::File->new(
             dir => $session_dir
+        ),
+        state => Plack::Session::State::Cookie->new(
+            sid_generator => $sid_generator,
+            sid_validator => $sid_validator
         );
     $app;
 };
